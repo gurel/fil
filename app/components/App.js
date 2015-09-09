@@ -76,7 +76,8 @@ class App extends React.Component {
     );
   }
 }
-
+// Which props do we want to inject, given the global state?
+// Note: use https://github.com/faassen/reselect for better performance.
 function select(state) {
   return {
     files: state.files,
@@ -86,4 +87,5 @@ function select(state) {
   };
 }
 
+// Wrap the component to inject dispatch and state into it
 export default connect(select)(App);
