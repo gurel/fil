@@ -12,7 +12,14 @@ import {writeLine, flush, runScript} from 'actions/terminal';
 import {write, error} from 'actions/terminal';
 import {byFileName} from 'interpreters';
 
+
 class App extends React.Component {
+  /** props injected by redux state are
+      -files => File list
+      -currentFile => current name of file
+      -terminal => The terminal Instance
+      -preferences => User Preferences
+  **/
   componentDidMount() {
     this.handleRun();
     this.lazyRun = _.debounce(this.handleRun, 300);
@@ -46,6 +53,8 @@ class App extends React.Component {
 
   render() {
     const block = "editor";
+    // props injected by redux state
+    // @see: select
     const {dispatch, files, currentFile, terminal} = this.props;
 
     return (
@@ -76,7 +85,7 @@ class App extends React.Component {
   }
 }
 
-function select(state) {
+function appState(state) {
   return {
     files: state.files,
     currentFile: state.currentFile,
@@ -85,4 +94,4 @@ function select(state) {
   };
 }
 
-export default connect(select)(App);
+export default connect(appState)(App);
